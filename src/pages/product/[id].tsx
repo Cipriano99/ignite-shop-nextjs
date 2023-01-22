@@ -2,44 +2,23 @@ import axios from "axios"
 import { GetStaticPaths, GetStaticProps } from "next"
 import Head from "next/head"
 import Image from "next/image"
-import { useState } from "react"
 import Stripe from "stripe"
+import { ProductPros } from "../../context/ShopContext"
+import { useShopContext } from "../../hooks/useShopContext"
 import { stripe } from "../../lib/stripe"
 import { ImageContainer, ProductContainer, ProductDetails } from "../../styles/pages/product"
 
-interface ProductProps {
-  product: {
-    id: string,
-    name: string,
-    imageUrl: string,
-    price: string,
-    description: string,
-    defaultPriceId: string,
-  }
+interface ProductType extends ProductPros {
+  description: string,
+  defaultPriceId: string,
 }
 
-export default function Product({ product }: ProductProps) {
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+interface IProductProps {
+  product: ProductType
+}
 
-  const handleBuyProduct = async () => {
-    try {
-      setIsCreatingCheckoutSession(true)
-
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
-      })
-
-      const { checkoutUrl } = response.data
-
-      window.location.href = checkoutUrl
-
-    } catch (error) {
-      // Conectar com uma ferramenta de observabilidade (Datadog | Sentry)
-
-      setIsCreatingCheckoutSession(false)
-      alert('Falha ao redirecionar ao checkout')
-    }
-  }
+export default function Product({ product }: IProductProps) {
+  const { addItemToOrder } = useShopContext()
 
   return (
     <>
@@ -59,8 +38,7 @@ export default function Product({ product }: ProductProps) {
           <p>{product.description}</p>
 
           <button
-            onClick={handleBuyProduct}
-            disabled={isCreatingCheckoutSession}
+            onClick={() => addItemToOrder(product)}
           >
             Comprar agora
           </button>
@@ -75,7 +53,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: [
       { params: { id: '' } } // opcional: produtos mais acessados
     ],
-    fallback: true, // Busca assíncrona dos dados pelo id: usar isFallback -> useRouter + loading screen
+    fallback: 'blocking', // Busca assíncrona dos dados pelo id: usar isFallback -> useRouter + loading screen
     // fallback: false, // Não busca novos produtos pelo id acessado
     // fallback: 'blocking', // Mostra a tela do produto após carregar todos os dados (demora)
   }
@@ -102,6 +80,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
         }).format(price.unit_amount! / 100),
         description: product.description,
         defaultPriceId: price.id,
+        basePrice: price.unit_amount
       },
     },
     revalidate: 60 * 60 * 1, // 1 hour

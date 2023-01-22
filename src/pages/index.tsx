@@ -1,22 +1,19 @@
+import Head from "next/head"
 import Image from "next/image"
-import Stripe from "stripe"
 import { GetStaticProps } from "next"
+import Stripe from "stripe"
+import { stripe } from "../lib/stripe"
 
 import { useKeenSlider } from 'keen-slider/react'
+import { OrderButton } from "../components/Header"
+import { ProductPros } from "../context/ShopContext"
 
-import { stripe } from "../lib/stripe"
 import { HomeContainer, ProductCard } from "../styles/pages/home"
-
+import { HiOutlineShoppingBag } from "react-icons/hi"
 import 'keen-slider/keen-slider.min.css'
-import Head from "next/head"
 
 interface HomeProps {
-  products: {
-    id: string,
-    name: string,
-    imageUrl: string,
-    price: string,
-  }[]
+  products: ProductPros[]
 }
 
 export default function Home({ products }: HomeProps) {
@@ -45,9 +42,20 @@ export default function Home({ products }: HomeProps) {
               <Image src={product.imageUrl} width={520} height={480} alt="" />
 
               <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
+                <div>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </div>
+
+                <OrderButton
+                  css={{
+                    backgroundColor: '$green300'
+                  }}
+                >
+                  <HiOutlineShoppingBag size={24} color='#fff' />
+                </OrderButton>
               </footer>
+
             </ProductCard>
           )
         })}
@@ -72,6 +80,7 @@ export const getStaticProps: GetStaticProps = async () => {
         style: 'currency',
         currency: 'BRL',
       }).format(price.unit_amount! / 100),
+      basePrice: price.unit_amount
     }
   })
 
@@ -79,7 +88,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       products,
     },
-    revalidate: 60 * 60 * 2, // 2 hours
+    revalidate: 60 * 60 * 24, // 24 hours
   }
 
 };

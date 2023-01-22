@@ -6,10 +6,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405)
   }
 
-  const { priceId } = req.body
+  const { orderList } = req.body
 
-  if (!priceId) {
-    return res.status(400).json({ error: 'Price not found.' })
+  if (!orderList || orderList.length === 0) {
+    return res.status(400).json({ error: 'Order not found.' })
   }
 
   const successUrl = `${process.env.NEXT_URL}/success?session_id={CHECKOUT_SESSION_ID}`
@@ -19,12 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     success_url: successUrl,
     cancel_url: cancelUrl,
     mode: 'payment',
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      }
-    ]
+    line_items: orderList
   })
 
   return res.status(201).json({
