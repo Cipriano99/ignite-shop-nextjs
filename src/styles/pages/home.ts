@@ -31,7 +31,7 @@ export const ProductCard = styled(Link, {
     bottom: '0.25rem',
     left: '0.25rem',
     right: '0.25rem',
-    padding: '2rem',
+    padding: '1rem 2rem',
 
     borderRadius: 6,
 
@@ -45,15 +45,20 @@ export const ProductCard = styled(Link, {
     opacity: 0,
     transition: 'all .2s ease-in-out',
 
-    strong: {
-      fontSize: '$lg',
-      color: '$gray100'
-    },
+    div: {
+      display: 'flex',
+      flexDirection: 'column',
 
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green300',
+      strong: {
+        fontSize: '$lg',
+        color: '$gray100'
+      },
+
+      span: {
+        fontSize: '$xl',
+        fontWeight: 'bold',
+        color: '$green300',
+      },
     },
   },
 
