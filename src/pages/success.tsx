@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { stripe } from "../lib/stripe";
+import logoImg from '../assets/logo.svg'
 import { ImageContainer, ImagesContainer, SuccessContainer } from "../styles/pages/success";
 
 type ProductType = {
@@ -18,7 +19,6 @@ interface SuccessProps {
 
 export default function Success({ customerName, product, quantity }: SuccessProps) {
   return (
-
     <>
       <Head>
         <title>Compra efetuada | Ignite Shop</title>
@@ -26,6 +26,9 @@ export default function Success({ customerName, product, quantity }: SuccessProp
       </Head>
 
       <SuccessContainer>
+
+        <Image src={logoImg} alt="" />
+
 
         <ImagesContainer>
           {product.map(item => (
@@ -35,7 +38,7 @@ export default function Success({ customerName, product, quantity }: SuccessProp
           ))}
         </ImagesContainer>
 
-        <h1>Compra efetuada</h1>
+        <h1>Compra efetuada!</h1>
 
         <p>
           Uhuul, <strong>{customerName}</strong>, sua compra de {quantity} camiseta

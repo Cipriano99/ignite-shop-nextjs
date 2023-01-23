@@ -3,11 +3,17 @@ import Image from "next/image"
 import logoImg from '../assets/logo.svg'
 import { styled } from "../styles"
 import { HiOutlineShoppingBag } from 'react-icons/hi'
+import { useRouter } from "next/router"
 
 export const Header = () => {
+  const router = useRouter()
   const { orderList, toggleSideMenu } = useShopContext()
 
   const howManyProducts = orderList.length
+
+  if (router.pathname === '/success') {
+    return <></>
+  }
 
   return (
     <HeaderContainer>
@@ -19,6 +25,7 @@ export const Header = () => {
           <span>{howManyProducts}</span>
         ) : null}
       </OrderButton>
+
     </HeaderContainer>
   )
 }
@@ -29,7 +36,7 @@ const HeaderContainer = styled('header', {
   maxWidth: 1180,
   margin: '0 auto',
   display: "flex",
-  justifyContent: "space-between"
+  justifyContent: "space-between",
 })
 
 export const OrderButton = styled('button', {
