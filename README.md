@@ -1,34 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Cipriano Ignite Shop - home screen](./.github/home.png)
 
-## Getting Started
+# 🧺 Ignite Shop
 
-First, run the development server:
+## Desafio de código!
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Projeto desenvolvido durante a **Especialização no desenvolvimento Front-end** na [Rocketseat](https://www.rocketseat.com.br/).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Sobre o projeto
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Aplicação de loja online de camisetas desenvolvida com NextJs, TypeScript, Stitches (CSS-in-JS) integrada com a plataforma Stripe.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Funcionalidades
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Nesta aplicação pode-se visualizar e adicionar à sacola de compras quantas camisas desejar e preencher os dados para pagamento.
 
-## Learn More
+## Techs utilizadas
 
-To learn more about Next.js, take a look at the following resources:
+- [NextJs](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Stitches](https://stitches.dev/)
+- [Stripe](https://stripe.com/)
+- [Git](https://git-scm.com/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Telas da aplicação
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Tela inicial
+  ![Home](./.github/home.png)
 
-## Deploy on Vercel
+- Produto
+  ![Product](./.github/product.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Sacola
+  ![Sacola](./.github/order.png)
+- Tela de pagamento no Stripe
+  ![Coffee order](./.github/payment.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Pedido concluído com sucesso
+  ![Success](./.github/success.png)
