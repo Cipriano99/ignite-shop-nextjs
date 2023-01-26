@@ -5,7 +5,6 @@ import Link from "next/link";
 import { stripe } from "../lib/stripe";
 import logoImg from '../assets/logo.svg'
 import { ImageContainer, ImagesContainer, SuccessContainer } from "../styles/pages/success";
-import Stripe from "stripe";
 
 type ProductType = {
   name: string,
@@ -79,7 +78,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   })
 
   const quantity = session.line_items?.data?.reduce((total: number, curr: any) => curr.quantity + total, 0)
-
 
   return {
     props: {

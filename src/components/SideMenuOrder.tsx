@@ -1,13 +1,23 @@
 import axios from "axios"
 import Image from "next/image"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { HiX } from "react-icons/hi"
 import { useShopContext } from "../hooks/useShopContext"
 import { styled } from "../styles"
+import { useRouter } from "next/router"
 
 export const SideMenuOrder: FC = () => {
+  const router = useRouter()
+
   const { orderList, isOpenSideMenu, toggleSideMenu, removeItemToOrder } = useShopContext()
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+
+  useEffect(() => {
+    if (isOpenSideMenu) {
+      toggleSideMenu()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router])
 
   if (!isOpenSideMenu) {
     return <></>
@@ -119,6 +129,7 @@ const SideContainer = styled('div', {
   position: 'absolute',
   right: 0,
   padding: '1.5rem',
+
 
   svg: {
     color: '$gray300',
